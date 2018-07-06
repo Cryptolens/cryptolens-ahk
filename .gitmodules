@@ -1,0 +1,3 @@
+[submodule "cryptolens-cpp"]
+	path = cryptolens-cpp
+	url = https://github.com/Cryptolens/cryptolens-cpp.git
