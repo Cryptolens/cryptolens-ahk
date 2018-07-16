@@ -2,6 +2,7 @@ CheckLicenseKey(LicenseKey)
 {
 	VarSetCapacity(Result, 32)
 	Valid := DllCall("AHKIntegration\CheckKey", AStr, LicenseKey, Ptr, &Result, "Cdecl UInt")
+        ErrLevel := ErrorLevel
 
 	KeyFeatures := NumGet(Result, 24, Int64)
 	ErrorSubsystem := NumGet(Result, 0, Int64)
@@ -31,6 +32,12 @@ CheckLicenseKey(LicenseKey)
 		MsgBox, %Text%
 		return
 	}
+
+        if (ErrLevel != 0)
+        {
+		MsgBox, Call failed: Code: %ErrLevel%
+		return
+        }
 
 	if (ErrorSubsystem == 1 && (ErrorReason == 6 || ErrorReason == 7 || ErrorReason == 8))
 	{
